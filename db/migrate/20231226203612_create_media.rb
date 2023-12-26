@@ -1,9 +1,9 @@
 class CreateMedia < ActiveRecord::Migration[7.1]
   def change
     create_table :media do |t|
-      t.string :name
-      t.string :furigana
-      t.string :website_url
+      t.string :name,        limit: 100, null: false
+      t.string :furigana,    limit: 200, null: false
+      t.string :website_url, limit: 200
 
       t.timestamps
     end
