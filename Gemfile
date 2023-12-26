@@ -20,6 +20,7 @@ gem "bootsnap", require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 gem "devise"
+gem "slim-rails"
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
@@ -31,6 +32,7 @@ group :development do
   # gem "rack-mini-profiler"
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+  gem "html2slim"
 end
 
 group :test do
