@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/slim-template/html2slim.git
+  revision: 6a08e416e4cd0e1b0804bfda5a9296ff7371e549
+  specs:
+    html2slim (0.2.0)
+      hpricot
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -114,8 +121,6 @@ GEM
     globalid (1.2.1)
       activesupport (>= 6.1)
     hpricot (0.8.6)
-    html2slim (0.2.0)
-      hpricot
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     io-console (0.7.1)
@@ -281,7 +286,7 @@ DEPENDENCIES
   cssbundling-rails
   debug
   devise
-  html2slim
+  html2slim!
   jbuilder
   jsbundling-rails
   mysql2 (~> 0.5)
