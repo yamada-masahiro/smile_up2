@@ -2,10 +2,16 @@ doctype html
 html
   head
     title
-      | SmileUp2
+      | SMILE-UP.
     meta[name="viewport" content="width=device-width,initial-scale=1"]
     = csrf_meta_tags
     = csp_meta_tag
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
   body
+    - if notice
+      p.notice
+        = notice
+    - if alert
+      p.alert
+        = alert
     = yield
