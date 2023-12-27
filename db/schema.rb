@@ -10,7 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_26_174112) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_27_104358) do
+  create_table "media", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name", limit: 100, null: false
+    t.string "furigana", limit: 200, null: false
+    t.string "website_url", limit: 200
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["furigana"], name: "index_media_on_furigana"
+    t.index ["name"], name: "index_media_on_name", unique: true
+  end
+
+  create_table "reporters", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name", limit: 100, null: false
+    t.string "furigana", limit: 200, null: false
+    t.boolean "independent", null: false
+    t.bigint "medium_id"
+    t.integer "desirability", limit: 1, null: false
+    t.string "portrait_source", limit: 300
+    t.string "portrait_copyright", limit: 100
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["medium_id"], name: "index_reporters_on_medium_id"
+  end
+
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -28,4 +51,5 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_26_174112) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "reporters", "media"
 end
