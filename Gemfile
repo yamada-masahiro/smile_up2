@@ -21,6 +21,7 @@ gem "bootsnap", require: false
 # gem "image_processing", "~> 1.2"
 gem "devise"
 gem "slim-rails"
+gem "validate_url"
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
