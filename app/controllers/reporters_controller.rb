@@ -22,6 +22,7 @@ class ReportersController < ApplicationController
   # POST /reporters or /reporters.json
   def create
     @reporter = Reporter.new(reporter_params)
+    @reporter.portrait.attach params[:reporter][:portrait]
 
     respond_to do |format|
       if @reporter.save
@@ -65,6 +66,7 @@ class ReportersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def reporter_params
-      params.require(:reporter).permit(:name, :furigana, :independent, :medium_id, :desirability, :portrait_source, :portrait_copyright)
+      params.require(:reporter).permit(:name, :furigana, :independent, :medium_id, :desirability,
+                                       :portrait, :portrait_source, :portrait_copyright)
     end
 end

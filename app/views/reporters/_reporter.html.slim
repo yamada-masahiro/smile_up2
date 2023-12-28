@@ -14,6 +14,11 @@ div id="#{dom_id reporter}"
   p
     strong Desirability:
     =< reporter.desirability
+
+  - if reporter.portrait.attached?
+    p
+      strong Portrait:
+      = image_tag reporter.portrait
   p
     strong Portrait source:
     =< reporter.portrait_source

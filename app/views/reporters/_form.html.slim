@@ -29,6 +29,10 @@
                   Reporter.desirabilities.keys.map{ |key| [t(key), key] }
 
   div
+    = form.label :portrait, style: "display: block"
+    = form.file_field :portrait, class: "form_control_file"
+    
+  div
     = form.label :portrait_source, style: "display: block"
     = form.text_field :portrait_source
 
