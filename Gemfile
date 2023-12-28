@@ -22,6 +22,7 @@ gem "bootsnap", require: false
 gem "devise"
 gem "slim-rails"
 gem "validate_url"
+gem "rails-i18n", "~> 7.0.0"
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
