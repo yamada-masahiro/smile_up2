@@ -1,27 +1,19 @@
-div id="#{dom_id reporter}"
-  p
-    strong Name:
-    =< reporter.name
-  p
-    strong Furigana:
-    =< reporter.furigana
-  p
-    strong Independent:
-    =< reporter.independent
-  p
-    strong Medium:
-    =< reporter.medium_id
-  p
-    strong Desirability:
-    =< reporter.desirability
-
+div.card.card-normal id="#{dom_id reporter}"
   - if reporter.portrait.attached?
+    figure
+      = link_to reporter.portrait_source do
+        = image_tag reporter.portrait, alt: "#{reporter.name}の顔写真"
+        - if reporter.portrait_copyright
+          small = "© #{reporter.portrait_copyright}"
+  .card-body
+    .card-title
+      ruby
+        = reporter.name
+        rt = reporter.furigana
+    - if reporter.independent?
+      p 所属無し（独立記者）
+    - elsif reporter.medium_id
+      p = link_to reporter.medium.name, medium_path(reporter.medium_id)
     p
-      strong Portrait:
-      = image_tag reporter.portrait
-  p
-    strong Portrait source:
-    =< reporter.portrait_source
-  p
-    strong Portrait copyright:
-    =< reporter.portrait_copyright
+      | 記者会見での指名:
+      = t(reporter.desirability, scope: 'activerecord.enums.reporter.desirability')
