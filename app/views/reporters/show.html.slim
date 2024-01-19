@@ -1,10 +1,27 @@
 p style="color: green" = notice
 
-== render @reporter
+h1 記者情報
 
-div
-  => link_to "Edit this reporter", edit_reporter_path(@reporter)
-  '|
-  =< link_to "Back to reporters", reporters_path
+div id="#{dom_id @reporter}"
 
-  = button_to "Destroy this reporter", @reporter, method: :delete
+  - if @reporter.portrait.attached?
+    figure
+      = link_to @reporter.portrait_source do
+        = image_tag @reporter.portrait, alt: "#{@reporter.name}の顔写真", class: "w-full md:w-1/2 lg:w-1/4"
+      - if @reporter.portrait_copyright
+        small.ml-auto = "© #{@reporter.portrait_copyright}"
+    ruby
+      = @reporter.name
+      rt = @reporter.furigana
+  - if @reporter.independent?
+    p 所属無し（独立記者）
+  - elsif @reporter.medium_id
+    p = link_to @reporter.medium.name, medium_path(@reporter.medium_id)
+  p
+    | 記者会見での指名:
+    = t(@reporter.desirability, scope: 'activerecord.enums.reporter.desirability')
+
+div.mt-5
+  = link_to "編集", edit_reporter_path(@reporter), class: "btn btn-primary"
+  = link_to "一覧", reporters_path, class: "btn"
+  = link_to "削除", @reporter, method: :delete, class: "btn btn-danger"

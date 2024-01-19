@@ -1,11 +1,31 @@
 p style="color: green" = notice
 
-h1 Reporters
+h1.text-2xl 記者一覧
 
-#reporters
+.flex.flex-row.flex-wrap.w-auto.mx-auto.border#reporters
   - @reporters.each do |reporter|
-    == render reporter
-    p
-      = link_to "Show this reporter", reporter
+      div.card.card-compact.w-52.mx-4.my-6.border id="#{dom_id reporter}"
+        figure.flex-col.h-56
+          - if reporter.portrait.attached?
+            = link_to reporter.portrait_source do
+              = image_tag reporter.portrait, alt: "#{reporter.name}の顔写真", size: "208x208"
+            - if reporter.portrait_copyright
+              small.ml-auto = "© #{reporter.portrait_copyright}"
+          -else
+            p.w-52.h-52.bg-neutral.text-neutral-content.align-center.align-middle No Image
+        .card-body.pt-1
+          h2.card-title.mt-0
+            = link_to edit_reporter_path(reporter), class: "card-link" do
+              ruby
+                = reporter.name
+                rt = reporter.furigana
+          - if reporter.independent?
+            p 所属無し（独立記者）
+          - elsif reporter.medium_id
+            p = link_to reporter.medium.name, medium_path(reporter.medium_id)
+          p
+            | 記者会見での指名:
+            = t(reporter.desirability, scope: 'activerecord.enums.reporter.desirability')
 
-= link_to "New reporter", new_reporter_path
+div
+= link_to "記者を追加する", new_reporter_path, class: "btn btn-primary right-0"
