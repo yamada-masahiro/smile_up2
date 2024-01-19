@@ -5,16 +5,18 @@ h1.text-2xl 記者一覧
 .flex.flex-row.flex-wrap.w-auto.mx-auto.border#reporters
   - @reporters.each do |reporter|
       div.card.card-compact.w-52.mx-4.my-6.border id="#{dom_id reporter}"
-        figure.flex-col.h-56
+        figure.flex-col.h-56.relative
           - if reporter.portrait.attached?
             = link_to reporter.portrait_source do
-              = image_tag reporter.portrait, alt: "#{reporter.name}の顔写真", size: "208x208"
+              = image_tag reporter.portrait, alt: "#{reporter.name}の顔写真", size: "208x208", class: "self-start"
             - if reporter.portrait_copyright
-              small.ml-auto = "© #{reporter.portrait_copyright}"
-          -else
+              small.h-4.ml-auto.absolute.bottom-0 = "© #{reporter.portrait_copyright}"
+            - else
+              .h-4
+          - else
             p.w-52.h-52.bg-neutral.text-neutral-content.align-center.align-middle No Image
         .card-body.pt-1
-          h2.card-title.mt-0
+          h2.card-title
             = link_to edit_reporter_path(reporter), class: "card-link" do
               ruby
                 = reporter.name
