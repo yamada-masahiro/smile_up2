@@ -26,6 +26,10 @@ div.mx-auto.p-4 id="#{dom_id @reporter}"
       p = link_to @reporter.medium.name, @reporter.medium.website_url
   .flex.flex-col.md:flex-row.md:flex-wrap.my-4
     p.bg-base-300.text-base-content.md:w-52.md:mr-4
+      = t :desirability, scope: 'activerecord.attributes.reporter'
+    p = t(@reporter.desirability, scope: 'activerecord.enums.reporter.desirability')
+  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+    p.bg-base-300.text-base-content.md:w-52.md:mr-4
       = t :portrait, scope: 'activerecord.attributes.reporter'
       - if @reporter.portrait.attached?
         div.h-64
@@ -41,10 +45,6 @@ div.mx-auto.p-4 id="#{dom_id @reporter}"
     p.bg-base-300.text-base-content.md:w-52.md:mr-4
       = t :portrait_copyright, scope: 'activerecord.attributes.reporter'
     p = @reporter.portrait_copyright
-  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
-    p.bg-base-300.text-base-content.md:w-52.md:mr-4
-      = t :desirability, scope: 'activerecord.attributes.reporter'
-    p = t(@reporter.desirability, scope: 'activerecord.enums.reporter.desirability')
 
 div.mt-5.flex.flex-row.justify-center
   .mx-1 = link_to "編集", edit_reporter_path(@reporter), class: "btn btn-neutral"
