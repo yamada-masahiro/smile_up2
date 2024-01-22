@@ -4,7 +4,7 @@ div.card.card-normal id="#{dom_id reporter}"
       = link_to reporter.portrait_source do
         = image_tag reporter.portrait, alt: "#{reporter.name}の顔写真", class: "w-full md:w-1/2 lg:w-1/4"
       - if reporter.portrait_copyright
-        small.justify-self-end = "© #{reporter.portrait_copyright}"
+        small.ml-auto = "© #{reporter.portrait_copyright}"
   .card-body
     .card-title
       ruby

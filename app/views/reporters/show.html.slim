@@ -1,10 +1,53 @@
+- provide :title, @reporter.name
+
 p style="color: green" = notice
 
-== render @reporter
+h1.text-2xl 記者情報
 
-div
-  => link_to "Edit this reporter", edit_reporter_path(@reporter)
-  '|
-  =< link_to "Back to reporters", reporters_path
+div.mx-auto.p-4 id="#{dom_id @reporter}"
+  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+    p.bg-base-300.text-base-content.md:w-52.md:mr-4
+      | 氏名
+    p = @reporter.name
+  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+    p.bg-base-300.text-base-content.md:w-52.md:mr-4
+      | 振り仮名
+    p = @reporter.furigana
+  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+    p.bg-base-300.text-base-content.md:w-52.md:mr-4
+      | 独立？
+    p = @reporter.independent
+  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+    p.bg-base-300.text-base-content.md:w-52.md:mr-4
+      | 所属
+    - if @reporter.independent?
+      p なし
+    - else
+      p = link_to @reporter.medium.name, @reporter.medium.url
+  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+    p.bg-base-300.text-base-content.md:w-52.md:mr-4
+      | 顔写真
+      - if @reporter.portrait.attached?
+        div.h-64
+          = image_tag @reporter.portrait, alt: "#{@reporter.name}の顔写真"
+              / , classf: "w-full md:w-1/2 lg:w-1/4"
+      - else
+        p No Image
+  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+    p.bg-base-300.text-base-content.md:w-52.md:mr-4
+      | 写真出典
+    - if @reporter.portrait_source
+      p = link_to @reporter.portrait_source, @reporter.portrait_source
+  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+    p.bg-base-300.text-base-content.md:w-52.md:mr-4
+      | 写真著作権者
+    p = @reporter.portrait_copyright
+  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+    p.bg-base-300.text-base-content.md:w-52.md:mr-4
+      | 記者会見での指名
+    p = t(@reporter.desirability, scope: 'activerecord.enums.reporter.desirability')
 
-  = button_to "Destroy this reporter", @reporter, method: :delete
+div.mt-5.flex.flex-row.justify-center
+  .mx-1 = link_to "編集", edit_reporter_path(@reporter), class: "btn btn-neutral"
+  .mx-1 = link_to "一覧", reporters_path, class: "btn btn-neutral"
+  .mx-1 = link_to "削除", @reporter, method: :delete, class: "btn btn-error"
