@@ -2,20 +2,22 @@ p style="color: green" = notice
 
 h1.text-2xl 記者一覧
 
-.flex.flex-row.flex-wrap.w-auto.mx-auto.border#reporters
+.flex.flex-row.flex-wrap.w-auto.mx-auto#reporters
   - @reporters.each do |reporter|
-      div.card.card-compact.w-52.mx-4.my-6.border id="#{dom_id reporter}"
-        figure.flex-col.h-56.relative
+      div.card.card-compact.w-52.mx-4.my-6.bg-base-300 id="#{dom_id reporter}"
+        figure.flex-col.h-56
           - if reporter.portrait.attached?
-            = link_to reporter.portrait_source do
-              = image_tag reporter.portrait, alt: "#{reporter.name}の顔写真", size: "208x208", class: "self-start"
+            div
+              = link_to reporter.portrait_source do
+                = image_tag reporter.portrait, alt: "#{reporter.name}の顔写真", size: "208x208", class: "block w-52 self-start"
             - if reporter.portrait_copyright
-              small.h-4.ml-auto.absolute.bottom-0 = "© #{reporter.portrait_copyright}"
+              p.h-4.ml-auto.text-sm = "© #{reporter.portrait_copyright}"
             - else
-              .h-4
+              p.h-4
           - else
-            p.w-52.h-52.bg-neutral.text-neutral-content.align-center.align-middle No Image
-        .card-body.pt-1
+            p.w-52.h-52.bg-neutral.text-neutral-content.text-center No Image
+            .h-4
+        .card-body
           h2.card-title
             = link_to edit_reporter_path(reporter), class: "card-link" do
               ruby
@@ -29,5 +31,5 @@ h1.text-2xl 記者一覧
             | 記者会見での指名:
             = t(reporter.desirability, scope: 'activerecord.enums.reporter.desirability')
 
-div
-= link_to "記者を追加する", new_reporter_path, class: "btn btn-primary right-0"
+.text-center
+  = link_to "記者を追加する", new_reporter_path, class: "btn btn-primary"
