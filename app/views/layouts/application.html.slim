@@ -8,12 +8,16 @@ html
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
   body
-    - if notice
-      p.notice
-        = notice
-    - if alert
-      p.alert
-        = alert
-    / main.prose
+    header
+      = render 'layouts/header'
+
+    .flash
+      - if notice
+        p.notice
+          = notice
+      - if alert
+        p.alert
+          = alert
+
     main.container.border.border-red-500.mx-auto
       = yield
