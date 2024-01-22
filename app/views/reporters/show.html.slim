@@ -7,44 +7,43 @@ h1.text-2xl 記者情報
 div.mx-auto.p-4 id="#{dom_id @reporter}"
   .flex.flex-col.md:flex-row.md:flex-wrap.my-4
     p.bg-base-300.text-base-content.md:w-52.md:mr-4
-      | 氏名
+      = t :name, scope: 'activerecord.attributes.reporter'
     p = @reporter.name
   .flex.flex-col.md:flex-row.md:flex-wrap.my-4
     p.bg-base-300.text-base-content.md:w-52.md:mr-4
-      | 振り仮名
+      = t :furigana, scope: 'activerecord.attributes.reporter'
     p = @reporter.furigana
   .flex.flex-col.md:flex-row.md:flex-wrap.my-4
     p.bg-base-300.text-base-content.md:w-52.md:mr-4
-      | 独立？
+      = t :independent, scope: 'activerecord.attributes.reporter'
     p = @reporter.independent
   .flex.flex-col.md:flex-row.md:flex-wrap.my-4
     p.bg-base-300.text-base-content.md:w-52.md:mr-4
-      | 所属
+      = t :medium, scope: 'activerecord.attributes.reporter'
     - if @reporter.independent?
       p なし
     - else
-      p = link_to @reporter.medium.name, @reporter.medium.url
+      p = link_to @reporter.medium.name, @reporter.medium.website_url
   .flex.flex-col.md:flex-row.md:flex-wrap.my-4
     p.bg-base-300.text-base-content.md:w-52.md:mr-4
-      | 顔写真
+      = t :portrait, scope: 'activerecord.attributes.reporter'
       - if @reporter.portrait.attached?
         div.h-64
           = image_tag @reporter.portrait, alt: "#{@reporter.name}の顔写真"
-              / , classf: "w-full md:w-1/2 lg:w-1/4"
       - else
         p No Image
   .flex.flex-col.md:flex-row.md:flex-wrap.my-4
     p.bg-base-300.text-base-content.md:w-52.md:mr-4
-      | 写真出典
+      = t :portrait_source, scope: 'activerecord.attributes.reporter'
     - if @reporter.portrait_source
       p = link_to @reporter.portrait_source, @reporter.portrait_source
   .flex.flex-col.md:flex-row.md:flex-wrap.my-4
     p.bg-base-300.text-base-content.md:w-52.md:mr-4
-      | 写真著作権者
+      = t :portrait_copyright, scope: 'activerecord.attributes.reporter'
     p = @reporter.portrait_copyright
   .flex.flex-col.md:flex-row.md:flex-wrap.my-4
     p.bg-base-300.text-base-content.md:w-52.md:mr-4
-      | 記者会見での指名
+      = t :desirability, scope: 'activerecord.attributes.reporter'
     p = t(@reporter.desirability, scope: 'activerecord.enums.reporter.desirability')
 
 div.mt-5.flex.flex-row.justify-center
