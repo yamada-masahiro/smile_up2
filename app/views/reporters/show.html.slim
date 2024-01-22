@@ -4,7 +4,7 @@ p style="color: green" = notice
 
 h1.text-2xl 記者情報
 
-div.mx-auto.p-4 id="#{dom_id @reporter}"
+div.mx-auto id="#{dom_id @reporter}"
   .flex.flex-col.md:flex-row.md:flex-wrap.my-4
     p.bg-base-300.text-base-content.md:w-52.md:mr-4
       = t :name, scope: 'activerecord.attributes.reporter'
