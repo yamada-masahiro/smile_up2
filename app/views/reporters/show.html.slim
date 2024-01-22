@@ -1,27 +1,51 @@
 p style="color: green" = notice
 
-h1 記者情報
+h1.text-2xl 記者情報
 
-div id="#{dom_id @reporter}"
+div.mx-auto.p-4 id="#{dom_id @reporter}"
+  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+    p.bg-base-300.text-base-content.md:w-52.md:mr-4
+      | 氏名
+    p = @reporter.name
+  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+    p.bg-base-300.text-base-content.md:w-52.md:mr-4
+      | 振り仮名
+    p = @reporter.furigana
+  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+    p.bg-base-300.text-base-content.md:w-52.md:mr-4
+      | 独立？
+    p = @reporter.independent
+  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+    p.bg-base-300.text-base-content.md:w-52.md:mr-4
+      | 所属
+    - if @reporter.independent?
+      p なし
+    - else
+      p = link_to @reporter.medium.name, @reporter.medium.url
+  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+    p.bg-base-300.text-base-content.md:w-52.md:mr-4
+      | 顔写真
+      - if @reporter.portrait.attached?
+        div.h-64
+          = image_tag @reporter.portrait, alt: "#{@reporter.name}の顔写真"
+              / , classf: "w-full md:w-1/2 lg:w-1/4"
+      - else
+        p No Image
+  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+    p.bg-base-300.text-base-content.md:w-52.md:mr-4
+      | 写真出典
+    - if @reporter.portrait_source
+      p = link_to @reporter.portrait_source, @reporter.portrait_source
+  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+    p.bg-base-300.text-base-content.md:w-52.md:mr-4
+      | 写真著作権者
+    p = @reporter.portrait_copyright
+  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+    p.bg-base-300.text-base-content.md:w-52.md:mr-4
+      | 記者会見での指名
+    p = t(@reporter.desirability, scope: 'activerecord.enums.reporter.desirability')
 
-  - if @reporter.portrait.attached?
-    figure
-      = link_to @reporter.portrait_source do
-        = image_tag @reporter.portrait, alt: "#{@reporter.name}の顔写真", class: "w-full md:w-1/2 lg:w-1/4"
-      - if @reporter.portrait_copyright
-        small.ml-auto = "© #{@reporter.portrait_copyright}"
-    ruby
-      = @reporter.name
-      rt = @reporter.furigana
-  - if @reporter.independent?
-    p 所属無し（独立記者）
-  - elsif @reporter.medium_id
-    p = link_to @reporter.medium.name, medium_path(@reporter.medium_id)
-  p
-    | 記者会見での指名:
-    = t(@reporter.desirability, scope: 'activerecord.enums.reporter.desirability')
-
-div.mt-5
-  = link_to "編集", edit_reporter_path(@reporter), class: "btn btn-primary"
-  = link_to "一覧", reporters_path, class: "btn"
-  = link_to "削除", @reporter, method: :delete, class: "btn btn-danger"
+div.mt-5.flex.flex-row.justify-center
+  .mx-1 = link_to "編集", edit_reporter_path(@reporter), class: "btn btn-neutral"
+  .mx-1 = link_to "一覧", reporters_path, class: "btn btn-neutral"
+  .mx-1 = link_to "削除", @reporter, method: :delete, class: "btn btn-error"
