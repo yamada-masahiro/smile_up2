@@ -1,0 +1,46 @@
+= form_with(model: reporter, class: 'mx-auto') do |form|
+  - if reporter.errors.any?
+    div style="color: red"
+      h2 = "#{pluralize(reporter.errors.count, "error")} prohibited this reporter from being saved:"
+      ul
+        - reporter.errors.each do |error|
+          li = error.full_message
+
+  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+    p.bg-base-300.text-base-content.md:w-52.md:mr-4 = form.label :name
+    p = form.text_field :name
+
+  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+    p.bg-base-300.text-base-content.md:w-52.md:mr-4 = form.label :furigana
+    p = form.text_field :furigana
+
+  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+    p.bg-base-300.text-base-content.md:w-52.md:mr-4 = form.label :independent
+    p = form.check_box :independent
+
+  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+    p.bg-base-300.text-base-content.md:w-52.md:mr-4 = form.label :medium_id
+    p = form.collection_select :medium_id, Medium.order(:furigana), :id, :name,
+                               include_blank: true
+
+  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+    p.bg-base-300.text-base-content.md:w-52.md:mr-4 = form.label :desirability
+    p = form.select :desirability,
+                    Reporter.desirabilities.keys.map{ |key| [t(key, scope: 'activerecord.enums.reporter.desirability'), key] }
+
+  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+    p.bg-base-300.text-base-content.md:w-52.md:mr-4 = form.label :portrait
+    p = form.file_field :portrait, class: "form_control_file"
+
+  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+    p.bg-base-300.text-base-content.md:w-52.md:mr-4 = form.label :portrait_source
+    p = form.text_field :portrait_source
+
+  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+    p.bg-base-300.text-base-content.md:w-52.md:mr-4 = form.label :portrait_copyright
+    p = form.text_field :portrait_copyright
+
+  div.flex.justify-center
+    .mx-1 = form.submit "更新", class: 'btn btn-primary'
+    / .mx-1 = link_to "表示", @reporter, class: 'btn btn-neutral'
+    .mx-1 = link_to "一覧", reporters_path, class: 'btn btn-neutral'

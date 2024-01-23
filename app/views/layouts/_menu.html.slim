@@ -1,0 +1,14 @@
+li = link_to 'NG リスト', '#'
+li
+  details
+    summary メディア
+    ul.z-30
+      li = link_to '一覧', media_path
+      li = link_to '追加', new_medium_path
+      li = link_to 'Something', '#'
+li
+  details
+    summary 記者
+    ul.z-30
+      li = link_to '一覧', reporters_path
+      li = link_to '追加', new_reporter_path

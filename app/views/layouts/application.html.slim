@@ -1,17 +1,23 @@
 doctype html
 html
   head
-    title
-      | SMILE-UP.
+    title = title_string yield(:title)
     meta[name="viewport" content="width=device-width,initial-scale=1"]
     = csrf_meta_tags
     = csp_meta_tag
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
+    = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
   body
-    - if notice
-      p.notice
-        = notice
-    - if alert
-      p.alert
-        = alert
-    = yield
+    header
+      = render 'layouts/header'
+
+    .flash
+      - if notice
+        p.notice
+          = notice
+      - if alert
+        p.alert
+          = alert
+
+    main.container.mx-auto.p-2
+      = yield
