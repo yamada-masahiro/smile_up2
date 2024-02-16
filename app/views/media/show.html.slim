@@ -1,10 +1,55 @@
+- provide :title, @medium.name
+
 p style="color: green" = notice
 
-== render @medium
+h1.text-2xl メディア情報
+div.mx-auto id="#{dom_id @medium}"
+  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+    p.bg-base-300.text-base-content.md:w-52.md:mr-4
+      = t :name, scope: 'activerecord.attributes.medium'
+    p = @medium.name
+  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+    p.bg-base-300.text-base-content.md:w-52.md:mr-4
+      = t :furigana, scope: 'activerecord.attributes.medium'
+    p = @medium.furigana
+  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+    p.bg-base-300.text-base-content.md:w-52.md:mr-4
+      = t :website_url, scope: 'activerecord.attributes.medium'
+    p = link_to @medium.website_url, @medium.website_url
 
-div
-  => link_to "Edit this medium", edit_medium_path(@medium)
-  '|
-  =< link_to "Back to media", media_path
+div.mt-5.flex.flex-row.justify-center
+  .mx-1 = link_to '編集', edit_medium_path(@medium), class: 'btn btn-neutral'
+  .mx-1 = link_to '一覧', media_path, class: 'btn btn-neutral'
+  .mx-1 = link_to '削除', @medium, method: :delete, class: 'btn btn-error'
+  .mx-1 = link_to "記者を追加する", new_reporter_path, class: "btn btn-primary"
 
-  = button_to "Destroy this medium", @medium, method: :delete
+- if @reporters.count > 0
+  h2.text-xl 所属記者一覧
+
+  .flex.flex-row.flex-wrap.w-auto.mx-auto#reporters
+    - @reporters.each do |reporter|
+        div.card.card-compact.w-52.mx-4.my-6.bg-base-300 id="#{dom_id reporter}"
+          figure.flex-col.h-56
+            - if reporter.portrait.attached?
+              div
+                = link_to reporter.portrait_source do
+                  = image_tag reporter.portrait, alt: "#{reporter.name}の顔写真", size: "208x208", class: "block w-52 self-start"
+              - if reporter.portrait_copyright
+                p.h-4.ml-auto.text-sm = "© #{reporter.portrait_copyright}"
+              - else
+                p.h-4
+            - else
+              p.w-52.h-52.bg-neutral.text-neutral-content.text-center No Image
+              .h-4
+          .card-body
+            h2.card-title
+              = link_to edit_reporter_path(reporter), class: "card-link" do
+                ruby
+                  = reporter.name
+                  rt = reporter.furigana
+            p
+              | 記者会見での指名:
+              = t(reporter.desirability, scope: 'activerecord.enums.reporter.desirability')
+
+  .text-center.mt-5
+    = link_to "記者を追加する", new_reporter_path, class: "btn btn-primary"
