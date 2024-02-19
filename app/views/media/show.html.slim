@@ -24,25 +24,22 @@ div.mt-5.flex.flex-row.justify-center
   .mx-1 = link_to "記者を追加する", new_reporter_path, class: "btn btn-primary"
 
 - if @reporters.count > 0
-  h2.text-xl 所属記者一覧
+  h2.my-10.text-xl 所属記者一覧
 
-  .flex.flex-row.flex-wrap.w-auto.mx-auto#reporters
-    - @reporters.each do |reporter|
-        div.card.card-compact.w-52.mx-4.my-6.bg-base-300 id="#{dom_id reporter}"
-          figure.flex-col.h-56
+  .flex.justify-center
+    div.grid.gap-4.mx-auto#reporters class="grid-cols-1 min-[471px]:grid-cols-2 min-[707px]:grid-cols-3 min-[943px]:grid-cols-4 min-[1178px]:grid-cols-5 min-[1414px]:grid-cols-6 min-[1885px]:grid-cols-8"
+      - @reporters.each do |reporter|
+        div.card.card-compact.shrink-0.bg-base-300 class="w-[200px]" id="#{dom_id reporter}"
+          figure.relative.bg-neutral class="h-[200px]"
             - if reporter.portrait.attached?
-              div
-                = link_to reporter.portrait_source do
-                  = image_tag reporter.portrait, alt: "#{reporter.name}の顔写真", size: "208x208", class: "block w-52 self-start"
+              = link_to edit_reporter_path(reporter), class: "block absolute top-0 left-0" do
+                = image_tag reporter.portrait, alt: "#{reporter.name}の顔写真", size: "200x200"
               - if reporter.portrait_copyright
-                p.h-4.ml-auto.text-sm = "© #{reporter.portrait_copyright}"
-              - else
-                p.h-4
+                p.absolute.bottom-0.right-0.bg-neutral.text-neutral-content.text-xs = "© #{reporter.portrait_copyright}"
             - else
-              p.w-52.h-52.bg-neutral.text-neutral-content.text-center No Image
-              .h-4
+              p.bg-neutral.text-neutral-content.text-lg No Image
           .card-body
-            h2.card-title
+            h3.card-title
               = link_to edit_reporter_path(reporter), class: "card-link" do
                 ruby
                   = reporter.name
@@ -51,5 +48,6 @@ div.mt-5.flex.flex-row.justify-center
               | 記者会見での指名:
               = t(reporter.desirability, scope: 'activerecord.enums.reporter.desirability')
 
-  .text-center.mt-5
+- if @reporters.count > 0
+  .text-center.mt-10
     = link_to "記者を追加する", new_reporter_path, class: "btn btn-primary"
