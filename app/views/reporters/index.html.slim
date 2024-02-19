@@ -23,18 +23,14 @@ h1.text-2xl 記者一覧
   div.grid.gap-4.mx-auto#reporters class="grid-cols-1 min-[471px]:grid-cols-2 min-[707px]:grid-cols-3 min-[943px]:grid-cols-4 min-[1178px]:grid-cols-5 min-[1414px]:grid-cols-6 min-[1885px]:grid-cols-8"
     - @reporters.each do |reporter|
       div.card.card-compact.shrink-0.bg-base-300 class="w-[200px]" id="#{dom_id reporter}"
-        figure.flex-col.h-56
+        figure.relative.bg-neutral class="h-[200px]"
           - if reporter.portrait.attached?
-            div
-              = link_to reporter.portrait_source, class: "block" do
-                = image_tag reporter.portrait, alt: "#{reporter.name}の顔写真", size: "200x200"
+            = link_to reporter.portrait_source, class: "block absolute top-0 left-0" do
+              = image_tag reporter.portrait, alt: "#{reporter.name}の顔写真", size: "200x200"
             - if reporter.portrait_copyright
-              p.h-4.ml-auto.text-sm = "© #{reporter.portrait_copyright}"
-            - else
-              p.h-4
+              p.absolute.bottom-0.right-0.bg-neutral.text-neutral-content.text-xs = "© #{reporter.portrait_copyright}"
           - else
-            p.w-52.h-52.bg-neutral.text-neutral-content.text-center No Image
-            .h-4
+            p.bg-neutral.text-neutral-content.text-lg No Image
         .card-body
           h2.card-title
             = link_to edit_reporter_path(reporter), class: "card-link" do
