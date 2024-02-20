@@ -8,6 +8,7 @@ class MediaController < ApplicationController
 
   # GET /media/1 or /media/1.json
   def show
+    @reporters = @medium.reporters
   end
 
   # GET /media/new

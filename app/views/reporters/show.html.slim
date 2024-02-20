@@ -31,11 +31,10 @@ div.mx-auto id="#{dom_id @reporter}"
   .flex.flex-col.md:flex-row.md:flex-wrap.my-4
     p.bg-base-300.text-base-content.md:w-52.md:mr-4
       = t :portrait, scope: 'activerecord.attributes.reporter'
-      - if @reporter.portrait.attached?
-        div.h-64
-          = image_tag @reporter.portrait, alt: "#{@reporter.name}の顔写真"
-      - else
-        p No Image
+    - if @reporter.portrait.attached?
+      = image_tag @reporter.portrait, alt: "#{@reporter.name}の顔写真", size: '200x200', class: 'block'
+    - else
+      p No Image
   .flex.flex-col.md:flex-row.md:flex-wrap.my-4
     p.bg-base-300.text-base-content.md:w-52.md:mr-4
       = t :portrait_source, scope: 'activerecord.attributes.reporter'

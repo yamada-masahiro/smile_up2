@@ -1,22 +1,23 @@
 = form_with(model: medium) do |form|
   - if medium.errors.any?
     div style="color: red"
-      h2 = "#{pluralize(medium.errors.count, "error")} prohibited this medium from being saved:"
-      ul
+      h2 = "エラーが #{medium.errors.count} 件 発生しているため、このメディアを保存できません"
+      ul.list-disc
         - medium.errors.each do |error|
           li = error.full_message
 
-  div
-    = form.label :name, style: "display: block"
-    = form.text_field :name
+  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+    = form.label :name, class: 'block bg-base-300 text-base-content md:w-52 md:mr-4'
+    = form.text_field :name, required: true, class: 'block w-full md:w-96'
 
-  div
-    = form.label :furigana, style: "display: block"
-    = form.text_field :furigana
+  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+    = form.label :furigana, class: 'block bg-base-300 text-base-content md:w-52 md:mr-4'
+    = form.text_field :furigana, required: true, class: 'block w-full md:w-96'
 
-  div
-    = form.label :website_url, style: "display: block"
-    = form.text_field :website_url
+  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+    = form.label :website_url, class: 'block bg-base-300 text-base-content md:w-52 md:mr-4'
+    = form.text_field :website_url, required: true, class: 'block w-full md:w-2/3'
 
-  div
-    = form.submit
+  .flex.justify-center
+    .mx-1 = form.submit '更新', class: 'btn btn-primary'
+    .mx-1 = link_to '一覧', media_path, class: 'btn btn-neutral'
