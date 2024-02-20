@@ -38,9 +38,9 @@
     = form.label :portrait, class: 'block bg-base-300 text-base-content md:w-52 md:mr-4'
     div
       -if reporter.portrait.attached?
-        p 下の写真が登録されています。
-        = image_tag reporter.portrait, alt: "登録されている顔写真", size: '100x100', class: 'block my-1'
-      = form.file_field :portrait, class: "form_control_file block"
+        p 下の写真が登録されています。変更する時は、別の写真のファイルを選択してください。
+        = image_tag reporter.portrait, alt: "登録されている顔写真", size: '200x200', class: 'block my-1'
+      = form.file_field :portrait, enctype: 'multipart/form-data', class: "form_control_file block"
 
   .flex.flex-col.md:flex-row.md:flex-wrap.my-4
     = form.label :portrait_source, class: 'block bg-base-300 text-base-content md:w-52 md:mr-4'
