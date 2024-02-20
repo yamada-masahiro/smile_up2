@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'ng_lists/normal'
   resources :reporters
   resources :media do
     resources :reporters, only: [:new]
