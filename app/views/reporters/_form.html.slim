@@ -36,7 +36,11 @@
 
   .flex.flex-col.md:flex-row.md:flex-wrap.my-4
     = form.label :portrait, class: 'block bg-base-300 text-base-content md:w-52 md:mr-4'
-    = form.file_field :portrait, class: "form_control_file block"
+    div
+      -if reporter.portrait.attached?
+        p 下の写真が登録されています。
+        = image_tag reporter.portrait, alt: "登録されている顔写真", size: '100x100', class: 'block my-1'
+      = form.file_field :portrait, class: "form_control_file block"
 
   .flex.flex-col.md:flex-row.md:flex-wrap.my-4
     = form.label :portrait_source, class: 'block bg-base-300 text-base-content md:w-52 md:mr-4'
