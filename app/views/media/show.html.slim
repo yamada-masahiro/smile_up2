@@ -21,7 +21,7 @@ div.mt-5.flex.flex-row.justify-center
   .mx-1 = link_to '編集', edit_medium_path(@medium), class: 'btn btn-neutral'
   .mx-1 = link_to '一覧', media_path, class: 'btn btn-neutral'
   .mx-1 = link_to '削除', @medium, method: :delete, class: 'btn btn-error'
-  .mx-1 = link_to "記者を追加する", new_reporter_path, class: "btn btn-primary"
+  .mx-1 = link_to "記者を追加する", new_medium_reporter_path(@medium), class: "btn btn-primary"
 
 - if @reporters.count > 0
   h2.my-10.text-xl 所属記者一覧
@@ -50,4 +50,4 @@ div.mt-5.flex.flex-row.justify-center
 
 - if @reporters.count > 0
   .text-center.mt-10
-    = link_to "記者を追加する", new_reporter_path, class: "btn btn-primary"
+    = link_to "記者を追加する", new_medium_reporter_path(@medium), class: "btn btn-primary"

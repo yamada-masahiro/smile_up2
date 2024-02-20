@@ -12,7 +12,13 @@ class ReportersController < ApplicationController
 
   # GET /reporters/new
   def new
-    @reporter = Reporter.new
+    puts "params[:medium_id]: #{params[:medium_id]}"
+    if params[:medium_id]
+      @medium = Medium.find(params[:medium_id])
+      @reporter = @medium.reporters.build
+    else
+      @reporter = Reporter.new
+    end
   end
 
   # GET /reporters/1/edit

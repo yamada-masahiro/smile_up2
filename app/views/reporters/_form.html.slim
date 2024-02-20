@@ -14,14 +14,19 @@
     = form.label :furigana, class: 'block bg-base-300 text-base-content md:w-52 md:mr-4'
     = form.text_field :furigana, required: true, class: 'block w-full md:w-96'
 
-  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
-    = form.label :independent, class: 'block bg-base-300 text-base-content md:w-52 md:mr-4'
-    = form.check_box :independent, required: false, class: 'block w-4 ml-0'
+  - if medium
+    = form.hidden_field :independent, value: false
+    = form.hidden_field :medium_id,   value: medium.id
 
-  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
-    = form.label :medium_id, class: 'block bg-base-300 text-base-content md:w-52 md:mr-4'
-    = form.collection_select :medium_id, Medium.order(:furigana), :id, :name,
-                               include_blank: true, class: 'block'
+  - else
+    .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+      = form.label :independent, class: 'block bg-base-300 text-base-content md:w-52 md:mr-4'
+      = form.check_box :independent, required: false, class: 'block w-4 ml-0'
+
+    .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+      = form.label :medium_id, class: 'block bg-base-300 text-base-content md:w-52 md:mr-4'
+      = form.collection_select :medium_id, Medium.order(:furigana), :id, :name,
+                                 include_blank: true, class: 'block'
 
   .flex.flex-col.md:flex-row.md:flex-wrap.my-4
     = form.label :desirability, class: 'block bg-base-300 text-base-content md:w-52 md:mr-4'
@@ -31,7 +36,7 @@
 
   .flex.flex-col.md:flex-row.md:flex-wrap.my-4
     = form.label :portrait, class: 'block bg-base-300 text-base-content md:w-52 md:mr-4'
-    = form.file_field :portrait, class: "form_control_file", class: 'block'
+    = form.file_field :portrait, class: "form_control_file block"
 
   .flex.flex-col.md:flex-row.md:flex-wrap.my-4
     = form.label :portrait_source, class: 'block bg-base-300 text-base-content md:w-52 md:mr-4'
