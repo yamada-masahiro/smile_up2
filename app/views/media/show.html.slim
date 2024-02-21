@@ -3,17 +3,17 @@
 h1.text-2xl メディア情報
 div.mx-auto id="#{dom_id @medium}"
   .flex.flex-col.md:flex-row.md:flex-wrap.my-4
-    p.bg-base-300.text-base-content.md:w-52.md:mr-4
+    p.md:w-40.md:mr-4
       = t :name, scope: 'activerecord.attributes.medium'
-    p = @medium.name
+    p.bg-base-300.text-base-content.md:w-96 = @medium.name
   .flex.flex-col.md:flex-row.md:flex-wrap.my-4
-    p.bg-base-300.text-base-content.md:w-52.md:mr-4
+    p.md:w-40.md:mr-4
       = t :furigana, scope: 'activerecord.attributes.medium'
-    p = @medium.furigana
+    p.bg-base-300.text-base-content.md:w-96 = @medium.furigana
   .flex.flex-col.md:flex-row.md:flex-wrap.my-4
-    p.bg-base-300.text-base-content.md:w-52.md:mr-4
+    p.md:w-40.md:mr-4
       = t :website_url, scope: 'activerecord.attributes.medium'
-    p = link_to @medium.website_url, @medium.website_url
+    p.bg-base-300.text-base-content.md:w-96 = link_to @medium.website_url, @medium.website_url
 
 div.mt-5.flex.flex-row.justify-center
   .mx-1 = link_to '編集', edit_medium_path(@medium), class: 'btn btn-neutral'
