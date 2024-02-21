@@ -1,2 +1,20 @@
-h1 NgLists#normal
-p Find me in app/views/ng_lists/normal.html.slim
+- provide :title, 'NG リスト'
+
+/ | 列 | 列幅 | 全幅 |
+/ |----+------+------|
+/ |  1 |  216 |  496 |
+/ |  2 |  432 |  928 |
+/ |  3 |  648 | 1360 |
+/ |  4 |  864 | 1792 |
+/ |  5 | 1080 | 2224 |
+/  #+TBLFM: $2=$1 * 200 + ($1 - 1) * 16 + 16::$3=2 * $2 + 64
+
+.flex.flex-wrap.flex-col.sm:flex-row-reverse.justify-center.gap-16
+  #undesirable class='w-[200px] min-[978px]:w-[416px] min-[1449px]:w-[632px] min-[1920px]:w-[848px] min-[2392px]:w-[1064px]'
+    h1.mb-5.text-xl.sm:text-2xl.text-center 指名 NG 記者
+    .grid.gap-4 class='grid-cols-1 min-[978px]:grid-cols-2 min-[1449px]:grid-cols-3 min-[1920px]:grid-cols-4 min-[2392px]:grid-cols-5'
+      = render partial: 'reporter', collection: @undesirable_reporters, locals: { show_desirability: false }
+  #desirable class='w-[200px] min-[978px]:w-[416px] min-[1449px]:w-[632px] min-[1920px]:w-[848px] min-[2392px]:w-[1064px]'
+    h1.mb-5.text-xl.sm:text-2xl.text-center 指名候補記者
+    .grid.gap-4 class='grid-cols-1 min-[978px]:grid-cols-2 min-[1449px]:grid-cols-3 min-[1920px]:grid-cols-4 min-[2392px]:grid-cols-5'
+      = render partial: 'reporter', collection: @desirable_reporters, locals: { show_desirability: false }
