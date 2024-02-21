@@ -3,30 +3,32 @@
 div.card.card-compact.bg-base-300 class='w-[200px]' id="#{dom_id reporter}"
   figure.relative.bg-neutral class='h-[200px]'
     - if reporter.portrait.attached?
-      = link_to edit_reporter_path(reporter), class: 'block absolute top-0 left-0' do
-        = image_tag reporter.portrait, alt: "#{reporter.name}の顔写真", size: '200x200'
-      -if reporter.portrait_copyright.present?
-        figcaption.block.absolute.bottom-0.right-0.bg-neutral.text-neutral-content.text-xs = "© #{reporter.portrait_copyright}"
+      = image_tag reporter.portrait, alt: "#{reporter.name}の顔写真", size: '200x200', class: 'block absolute top-0 left-0'
+      figcaption.block.absolute.bottom-0.right-0.bg-neutral.text-neutral-content.text-xs
+        - if reporter.portrait_source.present?
+          = link_to reporter.portrait_source, class: 'inner-link' do
+            - if reporter.portrait_copyright.present?
+              = "© #{reporter.portrait_copyright}"
+            - else
+              | 出典
     - else
       .bg-neutral.text-neutral-content.text-lg No Image
   .card-body
     - if is_header_2
       h2.card-title
-        = link_to edit_reporter_path(reporter) do
-          ruby
-            = reporter.name
-            rt = reporter.furigana
+        ruby
+          = reporter.name
+          rt = reporter.furigana
     - else
       h3.card-title
-        = link_to edit_reporter_path(reporter) do
-          ruby
-            = reporter.name
-            rt = reporter.furigana
+        ruby
+          = reporter.name
+          rt = reporter.furigana
     - if show_media
       - if reporter.independent?
         p 所属無し
       - elsif reporter.medium_id.present?
-        p = link_to reporter.medium.name, medium_path(reporter.medium_id)
+        p = link_to reporter.medium.name, medium_path(reporter.medium_id), class: 'link link-primary inner-link'
     - if show_desirability
       p
         | 記者会見での指名
