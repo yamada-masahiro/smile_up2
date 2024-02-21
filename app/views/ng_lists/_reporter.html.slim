@@ -1,16 +1,20 @@
 / <%# locals: (reporter: , show_media: true, show_desirability: true, is_header_2: true) -%>
 
+- link_icon = content_tag(:i, '', class: 'fa-solid fa-up-right-from-square')
+
 div.card.card-compact.bg-base-300 class='w-[200px]' id="#{dom_id reporter}"
   figure.relative.bg-neutral class='h-[200px]'
     - if reporter.portrait.attached?
       = image_tag reporter.portrait, alt: "#{reporter.name}の顔写真", size: '200x200', class: 'block absolute top-0 left-0'
       figcaption.block.absolute.bottom-0.right-0.bg-neutral.text-neutral-content.text-xs
         - if reporter.portrait_source.present?
-          = link_to reporter.portrait_source, class: 'inner-link' do
+          = link_to reporter.portrait_source, class: 'inner-link link-primary', target: '_blank' do
             - if reporter.portrait_copyright.present?
-              = "© #{reporter.portrait_copyright}"
+              = "© #{reporter.portrait_copyright} #{link_icon}".html_safe
             - else
-              | 出典
+              = "#{link_icon}".html_safe
+        - else
+          | 出典不明
     - else
       .bg-neutral.text-neutral-content.text-lg No Image
   .card-body
@@ -28,7 +32,8 @@ div.card.card-compact.bg-base-300 class='w-[200px]' id="#{dom_id reporter}"
       - if reporter.independent?
         p 所属無し
       - elsif reporter.medium_id.present?
-        p = link_to reporter.medium.name, medium_path(reporter.medium_id), class: 'link link-primary inner-link'
+        p = link_to "#{reporter.medium.name} #{link_icon}".html_safe,
+                    reporter.medium.website_url, class: 'link link-primary inner-link', target: '_blank'
     - if show_desirability
       p
         | 記者会見での指名
