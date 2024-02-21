@@ -43,7 +43,7 @@ div.mx-auto id="#{dom_id @reporter}"
       = t :portrait_copyright, scope: 'activerecord.attributes.reporter'
     p = @reporter.portrait_copyright
 
-div.mt-5.flex.flex-row.justify-center
-  .mx-1 = link_to "編集", edit_reporter_path(@reporter), class: "btn btn-neutral"
-  .mx-1 = link_to "一覧", reporters_path, class: "btn btn-neutral"
-  .mx-1 = link_to "削除", @reporter, method: :delete, class: "btn btn-error"
+div.mt-10.flex.flex-row.justify-center.gap-2
+  div = link_to "編集", edit_reporter_path(@reporter), class: "btn btn-neutral"
+  div = link_to "一覧", reporters_path, class: "btn btn-neutral"
+  div = link_to "削除", @reporter, method: :delete, class: "btn btn-error"
