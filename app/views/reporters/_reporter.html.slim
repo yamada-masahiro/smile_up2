@@ -8,7 +8,7 @@ div.card.card-compact.bg-base-300 class='w-[200px]' id="#{dom_id reporter}"
       = image_tag reporter.portrait, alt: "#{reporter.name}の顔写真", size: '200x200', class: 'block absolute top-0 left-0'
       figcaption.block.absolute.bottom-0.right-0.bg-neutral.text-neutral-content.text-xs
         - if reporter.portrait_source.present?
-          = link_to reporter.portrait_source, class: 'inner-link link-primary', target: '_blank' do
+          = link_to reporter.portrait_source, class: 'inner-link hover:link-primary', target: '_blank' do
             - if reporter.portrait_copyright.present?
               = "© #{reporter.portrait_copyright} #{link_icon}".html_safe
             - else
@@ -33,7 +33,7 @@ div.card.card-compact.bg-base-300 class='w-[200px]' id="#{dom_id reporter}"
         p 所属無し
       - elsif reporter.medium_id.present?
         p = link_to "#{reporter.medium.name} #{link_icon}".html_safe,
-                    reporter.medium.website_url, class: 'link link-primary inner-link', target: '_blank'
+                    reporter.medium.website_url, class: 'link hover:link-primary inner-link', target: '_blank'
     - if show_desirability
       p
         | 記者会見での指名
