@@ -21,7 +21,7 @@ h1.mb-10.text-2xl 記者一覧
 
 .flex.justify-center
   div.grid.gap-4.mx-auto#reporters class="grid-cols-1 min-[471px]:grid-cols-2 min-[707px]:grid-cols-3 min-[943px]:grid-cols-4 min-[1178px]:grid-cols-5 min-[1414px]:grid-cols-6 min-[1885px]:grid-cols-8"
-    = render partial: 'ng_lists/reporter', collection: @reporters
+    = render @reporters
 
 .text-center.mt-10
   = link_to "記者を追加する", new_reporter_path, class: "btn btn-primary"

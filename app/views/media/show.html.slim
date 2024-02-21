@@ -28,7 +28,7 @@ div.mt-5.flex.flex-row.justify-center
 
   .flex.justify-center
     div.grid.gap-4.mx-auto#reporters class="grid-cols-1 min-[471px]:grid-cols-2 min-[707px]:grid-cols-3 min-[943px]:grid-cols-4 min-[1178px]:grid-cols-5 min-[1414px]:grid-cols-6 min-[1885px]:grid-cols-8"
-      = render partial: 'ng_lists/reporter', collection: @reporters, locals: { is_header_2: false }
+      = render @reporters, { is_header_2: false }
 
 - if @reporters.count > 0
   .text-center.mt-10
