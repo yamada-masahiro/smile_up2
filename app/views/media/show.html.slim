@@ -18,7 +18,9 @@ div.mx-auto id="#{dom_id @medium}"
 div.mt-5.flex.flex-row.justify-center
   .mx-1 = link_to '編集', edit_medium_path(@medium), class: 'btn btn-neutral'
   .mx-1 = link_to '一覧', media_path, class: 'btn btn-neutral'
-  .mx-1 = link_to '削除', @medium, method: :delete, class: 'btn btn-error'
+  .mx-1 = link_to '削除', @medium, data: { turbo_method: :delete,
+                                           turbo_confirm: "#{@medium.name}を削除しますか" },
+                                   class: 'btn btn-error'
   .mx-1 = link_to "記者を追加する", new_medium_reporter_path(@medium), class: "btn btn-primary"
 
 - if @reporters.count > 0
