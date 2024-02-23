@@ -1,3 +1,5 @@
+/ <%# locals: (medium: , action: :new) -%>
+
 = form_with(model: medium) do |form|
   - if medium.errors.any?
     div style="color: red"
@@ -18,6 +20,10 @@
     = form.label :website_url, class: 'block bg-base-300 text-base-content md:w-52 md:mr-4'
     = form.text_field :website_url, required: true, class: 'block w-full md:w-2/3'
 
-  .flex.justify-center
-    .mx-1 = form.submit '更新', class: 'btn btn-primary'
-    .mx-1 = link_to '一覧', media_path, class: 'btn btn-neutral'
+  .flex.justify-center.gap-2
+    - if action == :new
+      - caption = '追加'
+    - else
+      - caption = '更新'
+    div = form.submit caption, class: 'btn btn-primary'
+    div = link_to '一覧', media_path, class: 'btn btn-neutral'
