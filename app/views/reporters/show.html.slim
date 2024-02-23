@@ -44,9 +44,6 @@ div.mx-auto id="#{dom_id @reporter}"
     p.bg-base-300.text-base-content.md:w-96 = @reporter.portrait_copyright
 
 div.mt-10.flex.flex-row.justify-center.gap-2
-  div = link_to "編集", edit_reporter_path(@reporter), class: "btn btn-neutral"
-  div = link_to "一覧", reporters_path, class: "btn btn-neutral"
-  / div = link_to "削除", @reporter, method: :delete, class: "btn btn-error"
-  div = link_to "削除", @reporter, data: { turbo_method:  :delete,
-                                           turbo_confirm: "#{@reporter.name}を削除しますか" },
-                                   class: "btn btn-error"
+  div = link_to   "編集", edit_reporter_path(@reporter), class: "btn btn-neutral"
+  div = link_to   "一覧", reporters_path, class: "btn btn-neutral"
+  div = button_to "削除", @reporter, method: :delete, class: "btn btn-error"
