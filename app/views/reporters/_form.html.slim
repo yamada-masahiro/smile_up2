@@ -1,3 +1,5 @@
+/ <%# locals: (reporter: , medium: nil, action: :new) -%>
+
 = form_with(model: reporter, class: 'mx-auto') do |form|
   - if reporter.errors.any?
     div style="color: red"
@@ -14,7 +16,7 @@
     = form.label :furigana, class: 'block bg-base-300 text-base-content md:w-52 md:mr-4'
     = form.text_field :furigana, required: true, class: 'block w-full md:w-96'
 
-  - if medium
+  - if medium.present?
     = form.hidden_field :independent, value: false
     = form.hidden_field :medium_id,   value: medium.id
 
@@ -50,7 +52,10 @@
     = form.label :portrait_copyright, class: 'block bg-base-300 text-base-content md:w-52 md:mr-4'
     = form.text_field :portrait_copyright, class: 'block w-full md:w-96'
 
-  div.flex.justify-center
-    .mx-1 = form.submit "更新", class: 'btn btn-primary'
-    / .mx-1 = link_to "表示", @reporter, class: 'btn btn-neutral'
-    .mx-1 = link_to "一覧", reporters_path, class: 'btn btn-neutral'
+  div.flex.justify-center.gap-2
+    - if action == :new
+      div = form.submit '追加', class: 'btn btn-primary'
+    - else
+      div = form.submit '更新', class: 'btn btn-primary'
+      div = link_to "表示", @reporter, class: 'btn btn-neutral'
+    div = link_to "一覧", reporters_path, class: 'btn btn-neutral'

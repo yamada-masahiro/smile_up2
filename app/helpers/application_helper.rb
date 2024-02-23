@@ -6,4 +6,8 @@ module ApplicationHelper
       "#{title} | SMILE-UP."
     end
   end
+
+  def link_icon
+    @link_icon ||= content_tag(:i, '', class: 'fa-solid fa-up-right-from-square')
+  end
 end

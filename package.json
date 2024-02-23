@@ -12,6 +12,8 @@
   "author": "YAMADA Masahiro <yamada_masahiro@nifty.com>",
   "license": "none",
   "dependencies": {
+    "@hotwired/stimulus": "^3.2.2",
+    "@hotwired/turbo-rails": "^8.0.3",
     "autoprefixer": "^10.4.16",
     "daisyui": "^4.4.24",
     "esbuild": "^0.19.10",

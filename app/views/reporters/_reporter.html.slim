@@ -1,19 +1,38 @@
-div.card.card-normal id="#{dom_id reporter}"
-  - if reporter.portrait.attached?
-    figure.flex-col
-      = link_to reporter.portrait_source do
-        = image_tag reporter.portrait, alt: "#{reporter.name}の顔写真", class: "w-full md:w-1/2 lg:w-1/4"
-      - if reporter.portrait_copyright
-        small.ml-auto = "© #{reporter.portrait_copyright}"
+/ <%# locals: (reporter: , show_media: true, show_desirability: true, is_header_2: true) -%>
+
+div.card.card-compact.bg-base-300 class='w-[200px]' id="#{dom_id reporter}"
+  figure.relative.bg-neutral class='h-[200px]'
+    - if reporter.portrait.attached?
+      = image_tag reporter.portrait, alt: "#{reporter.name}の顔写真", size: '200x200', class: 'block absolute top-0 left-0'
+      figcaption.block.absolute.bottom-0.right-0.bg-neutral.text-neutral-content.text-xs
+        - if reporter.portrait_source.present?
+          = link_to reporter.portrait_source, class: 'inner-link hover:link-primary', target: '_blank' do
+            - if reporter.portrait_copyright.present?
+              = "© #{reporter.portrait_copyright} #{link_icon}".html_safe
+            - else
+              = "#{link_icon}".html_safe
+        - else
+          | 出典不明
+    - else
+      .bg-neutral.text-neutral-content.text-lg No Image
   .card-body
-    .card-title
-      ruby
-        = reporter.name
-        rt = reporter.furigana
-    - if reporter.independent?
-      p 所属無し（独立記者）
-    - elsif reporter.medium_id
-      p = link_to reporter.medium.name, medium_path(reporter.medium_id)
-    p
-      | 記者会見での指名:
-      = t(reporter.desirability, scope: 'activerecord.enums.reporter.desirability')
+    - if is_header_2
+      h2.card-title
+        ruby
+          = reporter.name
+          rt = reporter.furigana
+    - else
+      h3.card-title
+        ruby
+          = reporter.name
+          rt = reporter.furigana
+    - if show_media
+      - if reporter.independent?
+        p 所属無し
+      - elsif reporter.medium_id.present?
+        p = link_to "#{reporter.medium.name} #{link_icon}".html_safe,
+                    reporter.medium.website_url, class: 'link hover:link-primary inner-link', target: '_blank'
+    - if show_desirability
+      p
+        | 記者会見での指名
+        = t(reporter.desirability, scope: 'activerecord.enums.reporter.desirability')
