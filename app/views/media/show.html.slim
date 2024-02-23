@@ -13,7 +13,8 @@ div.mx-auto id="#{dom_id @medium}"
   .flex.flex-col.md:flex-row.md:flex-wrap.my-4
     p.md:w-40.md:mr-4
       = t :website_url, scope: 'activerecord.attributes.medium'
-    p.bg-base-300.text-base-content.md:w-96 = link_to @medium.website_url, @medium.website_url, class: 'link hover:link-primary'
+    p.bg-base-300.text-base-content.md:w-96
+      = link_to "#{@medium.website_url} #{link_icon}".html_safe, @medium.website_url, class: 'link hover:link-primary'
 
 div.mt-5.flex.flex-row.justify-center.gap-2
   div = link_to   '編集', edit_medium_path(@medium), class: 'btn btn-neutral'

@@ -1,7 +1,5 @@
 / <%# locals: (reporter: , show_media: true, show_desirability: true, is_header_2: true) -%>
 
-- link_icon = content_tag(:i, '', class: 'fa-solid fa-up-right-from-square')
-
 div.card.card-compact.bg-base-300 class='w-[200px]' id="#{dom_id reporter}"
   figure.relative.bg-neutral class='h-[200px]'
     - if reporter.portrait.attached?

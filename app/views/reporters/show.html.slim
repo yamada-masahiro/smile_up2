@@ -37,7 +37,8 @@ div.mx-auto id="#{dom_id @reporter}"
     p.md:w-32.md:mr-4
       = t :portrait_source, scope: 'activerecord.attributes.reporter'
     - if @reporter.portrait_source
-      p.bg-base-300.text-base-content.md:w-96 = link_to @reporter.portrait_source, @reporter.portrait_source, class: 'link hover:link-primary'
+      p.bg-base-300.text-base-content.md:w-96
+        = link_to "@reporter.portrait_source #{link_icon}".html_safe, @reporter.portrait_source, class: 'link hover:link-primary'
   .flex.flex-col.md:flex-row.md:flex-wrap.my-4
     p.md:w-32.md:mr-4
       = t :portrait_copyright, scope: 'activerecord.attributes.reporter'
