@@ -15,3 +15,6 @@ application.register("ng-lists", NgListsController)
 
 import ReportersController from "./reporters_controller"
 application.register("reporters", ReportersController)
+
+import StaticPagesController from "./static_pages_controller"
+application.register("static-pages", StaticPagesController)
