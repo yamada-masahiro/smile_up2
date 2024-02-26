@@ -1,0 +1,123 @@
+- provide :title, 'このサイトについて'
+
+/ p = '<code>printf("hello, world.\\n");</code>'.html_safe
+
+article.mx-auto.leading-loose class='md:w-1/2'
+
+  h1.my-8.text-2xl このサイトについて
+
+  section
+    details
+      summary
+        h2.inline-block.my-4.text-xl 何をするサイトですか
+      p
+        | 記者やノンフィクション作家を登録して、「NGリスト」を作ります。
+
+      figure.float-right.box-content.m-4#ng-list-picture style='width: 400px;'
+        = image_tag 'NG_list.avif', size: '400x300',
+            alt: '記者会見場の平面図を中央に置き、左側に「氏名候補記者」、右側に「氏名NG記者」と見出しがあり、それぞれの下に記者の顔写真と名前が並ぶ。'
+        figcaption.block.p-2.text-xs
+          | NGリストの写真。「NG記者」のモザイクが外れた。（出典:
+          = link_to "「スクープ！ジャニーズ会見で使用された『指名候補&NGリスト』現物入手&全社名公開！」、<cite lang=\"en\">FRIDAY DIGITAL</cite> #{link_icon}".html_safe,
+              'https://friday.kodansha.co.jp/article/335459',
+              class: 'link link-primary', target: '_blank'
+          | ）
+      p
+        | これは、
+        = link_to "NHKが2023年10月4日に報道して明らかになった #{link_icon}".html_safe,
+              'https://www3.nhk.or.jp/news/html/20231004/k10014215471000.html',
+              class: 'link link-primary', target: '_blank'
+        | ものですね。NHKの報道ではモザイクが掛かっていましたが、同日、
+        cite lang='en' FRIDAY DIGITAL
+        | が
+        = link_to "半分以上モザイクを外した写真 #{link_icon}".html_safe,
+            'https://friday.kodansha.co.jp/article/335459/photo/94fb0047',
+            class: 'link link-primary', target: '_blank'
+        | を公開しました。
+      p
+        = link_to 'この写真', 'ng-list-picture', class: 'link'
+        | に有るように、リストには次の項目が記されています。
+      ul.list-inside.list-disc.pl-4
+        li 記者の顔写真
+        li 記者の名前
+      p
+        | これに加えて、
+        = link_to 'このサイトのNGリスト', ng_list_path, class: 'link'
+        | には、分かりやすさのために、次の項目も記載しています。
+      ul.list-inside.list-disc.pl-4
+        li 記者が所属するメディアがあれば、その名前
+      p
+        | 「追加の情報は要らない。オリジナルのNGリストが良い。」
+        br
+        | と言う人はいますか？そうした声が多ければ、「オリジナルに近いリスト」を作るかもしれません。
+
+  section
+    details
+      summary
+        h2.inline-block.my-4.text-xl どのように使うのですか
+      p
+        | まず、
+        = link_to '記者追加画面', new_reporter_path, class: 'link'
+        | から記者の情報を追加してください。もしかしたら、その記者は既に登録されているかもしれません。
+        = link_to '記者一覧画面', reporters_path, class: 'link'
+        | を見てください。
+      p
+        | 記者を追加する時には、その記者を記者会見で指名するのが望ましいのかどうかを指定してください。
+        | ここで指定したのに合わせて
+        = link_to 'NGリスト', ng_list_path, class: 'link'
+        | の左側（指名候補）に載るか右側（指名NG）に載るかが決まります。
+      p
+        | 望ましさがどちらとも言えない記者は、NGリストには現れません。
+        | ですので、登録しても、意味はありません。
+
+      details
+        summary
+          h3.inline-block.my-4.text-lg メディアも入力しますか
+        p
+          | このサイトでは、記者を次のように区別しています。
+        ul.list-inside.list-disc.pl-4
+          li フリーランスの記者、ノンフィクション作家
+          li メディアに所属して活動する記者
+        p
+          | 記者の情報に所属メディアを載せておけば、
+          = link_to 'NGリスト', ng_list_path, class: 'link'
+          | に表示されます。
+
+      details
+        summary
+          h3.inline-block.my-4.text-lg#add-medium メディアを追加するには
+        p
+          = link_to 'メディア追加画面', new_medium_path, class: 'link'
+          | から追加してください。
+
+      details
+        summary
+          h3.inline-block.my-4.text-lg 記者の所属メディアを変更するには
+        p
+          = link_to 'NGリスト', ng_list_path, class: 'link'
+          | の記者をクリックすると、その記者の情報を編集する画面が開きます。
+          = t :medium, scope: 'activerecord.attributes.reporter'
+          | がプルダウン・メニューになっています。その中から選んでください。
+        p
+          | 該当するメディア名がプルダウンに無ければ、まず
+          = link_to 'メディア追加画面', new_medium_path, class: 'link'
+          | から追加してください。その後、記者情報を編集する画面に戻って、所属メディアを修正してください。
+
+  section
+    details
+      summary
+        h2.inline-block.my-4.text-xl このサイトは誰が作ったのですか
+      figure.float_left.box-content.m-4 class='w-[100px]'
+        = link_to 'https://www.lancers.jp/profile/MasahiroYamada', class: 'block link link-primary' do
+          = image_tag 'https://gravatar.com/avatar/91cb693f61138d389770fb44af56733c?size=100', size: '100x100'
+        figcaption.block.p-2.text-xs
+          = link_to 'https://www.lancers.jp/profile/MasahiroYamada', class: 'link link-primary' do
+            | 山田昌弘（2020年撮影）
+            = link_icon.html_safe
+      p
+        = link_to 'https://www.lancers.jp/profile/MasahiroYamada', class: 'link link-primary' do
+          | フリーランス・エンジニアの
+          ruby
+            | 山田 昌弘
+            rt やまだ まさひろ
+        | が作りました。

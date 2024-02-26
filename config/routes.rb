@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'static_pages/about'
   get 'ng_lists/normal'
   get 'ng_list' => 'ng_lists#normal'
   resources :reporters
