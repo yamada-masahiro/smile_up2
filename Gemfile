@@ -4,7 +4,7 @@ ruby "3.2.2"
 
 gem "rails", "~> 7.1.2"
 gem "sprockets-rails"
-gem "mysql2", "~> 0.5"
+gem "mysql2", "~> 0.5.6"
 gem "puma", ">= 5.0"
 gem "jsbundling-rails"
 gem "turbo-rails"
@@ -40,4 +40,8 @@ end
 group :test do
   gem "capybara"
   gem "selenium-webdriver"
+end
+
+group :production do
+  gem "google-cloud-storage", "~> 1.11", require: false
 end
