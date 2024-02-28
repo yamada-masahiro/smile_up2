@@ -25,10 +25,10 @@ steps:
     secretEnv: ["RAILS_KEY"]
 
 substitutions:
-  _REGION: asia-northeast1
-  _SERVICE_NAME: rails-cat-album
-  _INSTANCE_NAME: cat-album
-  _SECRET_NAME: rails-master-key
+  _REGION:        asia-northeast1
+  _SERVICE_NAME:  smile-up
+  _INSTANCE_NAME: smile-up
+  _SECRET_NAME:   RAILS_MASTER_KEY
 
 availableSecrets:
   secretManager:
