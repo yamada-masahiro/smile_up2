@@ -81,4 +81,4 @@ production:
   <<: *default
   database: smile_up2_production
   username: smile_up2
-  password: <%= ENV["SMILE_UP2_DATABASE_PASSWORD"] %>
+  password: <%= Rails.application.credentials.dig(:render, :postgresql, :password) %>
