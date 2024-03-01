@@ -4,7 +4,7 @@ ruby "3.2.2"
 
 gem "rails", "~> 7.1.2"
 gem "sprockets-rails"
-gem "mysql2", "~> 0.5"
+gem "pg", "~> 1.1"
 gem "puma", ">= 5.0"
 gem "jsbundling-rails"
 gem "turbo-rails"
@@ -19,9 +19,14 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "bootsnap", require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
+gem "devise"
+gem "slim-rails"
+gem "validate_url"
+gem "rails-i18n", "~> 7.0.0"
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
+  gem "factory_bot_rails"
 end
 
 group :development do
@@ -35,4 +40,8 @@ end
 group :test do
   gem "capybara"
   gem "selenium-webdriver"
+end
+
+group :production do
+  gem "google-cloud-storage", "~> 1.11", require: false
 end

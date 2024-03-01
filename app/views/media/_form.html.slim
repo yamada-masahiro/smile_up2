@@ -1,0 +1,29 @@
+/ <%# locals: (medium: , action: :new) -%>
+
+= form_with(model: medium) do |form|
+  - if medium.errors.any?
+    div style="color: red"
+      h2 = "エラーが #{medium.errors.count} 件 発生しているため、このメディアを保存できません"
+      ul.list-disc
+        - medium.errors.each do |error|
+          li = error.full_message
+
+  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+    = form.label :name, class: 'block bg-base-300 text-base-content md:w-52 md:mr-4'
+    = form.text_field :name, required: true, class: 'block w-full md:w-96'
+
+  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+    = form.label :furigana, class: 'block bg-base-300 text-base-content md:w-52 md:mr-4'
+    = form.text_field :furigana, required: true, class: 'block w-full md:w-96'
+
+  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+    = form.label :website_url, class: 'block bg-base-300 text-base-content md:w-52 md:mr-4'
+    = form.text_field :website_url, required: true, class: 'block w-full md:w-2/3'
+
+  .flex.justify-center.gap-2
+    - if action == :new
+      - caption = '追加'
+    - else
+      - caption = '更新'
+    div = form.submit caption, class: 'btn btn-primary'
+    div = link_to '一覧', media_path, class: 'btn btn-neutral'

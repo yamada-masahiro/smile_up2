@@ -1,0 +1,34 @@
+- provide :title, @medium.name
+
+h1.text-2xl メディア情報
+div.mx-auto id="#{dom_id @medium}"
+  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+    p.md:w-40.md:mr-4
+      = t :name, scope: 'activerecord.attributes.medium'
+    p.bg-base-300.text-base-content.md:w-96 = @medium.name
+  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+    p.md:w-40.md:mr-4
+      = t :furigana, scope: 'activerecord.attributes.medium'
+    p.bg-base-300.text-base-content.md:w-96 = @medium.furigana
+  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+    p.md:w-40.md:mr-4
+      = t :website_url, scope: 'activerecord.attributes.medium'
+    p.bg-base-300.text-base-content.md:w-96
+      = link_to "#{@medium.website_url} #{link_icon}".html_safe, @medium.website_url, class: 'link hover:link-primary'
+
+div.mt-5.flex.flex-row.justify-center.gap-2
+  div = link_to   '編集', edit_medium_path(@medium), class: 'btn btn-neutral'
+  div = link_to   '一覧', media_path, class: 'btn btn-neutral'
+  div = button_to '削除', @medium, method: :delete, class: 'btn btn-error'
+  div = link_to   '記者を追加する', new_medium_reporter_path(@medium), class: 'btn btn-primary'
+
+- if @reporters.count > 0
+  h2.my-10.text-xl 所属記者一覧
+
+  .flex.justify-center
+    div.grid.gap-4.mx-auto#reporters class="grid-cols-1 min-[471px]:grid-cols-2 min-[707px]:grid-cols-3 min-[943px]:grid-cols-4 min-[1178px]:grid-cols-5 min-[1414px]:grid-cols-6 min-[1885px]:grid-cols-8"
+      = render @reporters, { is_header_2: false }
+
+- if @reporters.count > 0
+  .text-center.mt-10
+    = link_to '記者を追加する', new_medium_reporter_path(@medium), class: 'btn btn-primary'

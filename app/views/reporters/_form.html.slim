@@ -1,0 +1,61 @@
+/ <%# locals: (reporter: , medium: nil, action: :new) -%>
+
+= form_with(model: reporter, class: 'mx-auto') do |form|
+  - if reporter.errors.any?
+    div style="color: red"
+      h2 = "#{pluralize(reporter.errors.count, "error")} prohibited this reporter from being saved:"
+      ul
+        - reporter.errors.each do |error|
+          li = error.full_message
+
+  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+    = form.label :name, class: 'block bg-base-300 text-base-content md:w-52 md:mr-4'
+    = form.text_field :name, required: true, class: 'block w-full md:w-96'
+
+  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+    = form.label :furigana, class: 'block bg-base-300 text-base-content md:w-52 md:mr-4'
+    = form.text_field :furigana, required: true, class: 'block w-full md:w-96'
+
+  - if medium.present?
+    = form.hidden_field :independent, value: false
+    = form.hidden_field :medium_id,   value: medium.id
+
+  - else
+    .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+      = form.label :independent, class: 'block bg-base-300 text-base-content md:w-52 md:mr-4'
+      = form.check_box :independent, required: false, class: 'block w-4 ml-0'
+
+    .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+      = form.label :medium_id, class: 'block bg-base-300 text-base-content md:w-52 md:mr-4'
+      = form.collection_select :medium_id, Medium.order(:furigana), :id, :name,
+                                 include_blank: true, class: 'block'
+
+  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+    = form.label :desirability, class: 'block bg-base-300 text-base-content md:w-52 md:mr-4'
+    = form.select :desirability,
+                    Reporter.desirabilities.keys.map{ |key| [t(key, scope: 'activerecord.enums.reporter.desirability'), key] },
+                    class: 'block'
+
+  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+    = form.label :portrait, class: 'block bg-base-300 text-base-content md:w-52 md:mr-4'
+    div
+      -if reporter.portrait.attached?
+        p 下の写真が登録されています。変更する時は、別の写真のファイルを選択してください。
+        = image_tag reporter.portrait, alt: "登録されている顔写真", size: '200x200', class: 'block my-1'
+      = form.file_field :portrait, enctype: 'multipart/form-data', class: "form_control_file block"
+
+  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+    = form.label :portrait_source, class: 'block bg-base-300 text-base-content md:w-52 md:mr-4'
+    = form.text_field :portrait_source, class: 'block w-full md:w-2/3'
+
+  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+    = form.label :portrait_copyright, class: 'block bg-base-300 text-base-content md:w-52 md:mr-4'
+    = form.text_field :portrait_copyright, class: 'block w-full md:w-96'
+
+  div.flex.justify-center.gap-2
+    - if action == :new
+      div = form.submit '追加', class: 'btn btn-primary'
+    - else
+      div = form.submit '更新', class: 'btn btn-primary'
+      div = link_to "表示", @reporter, class: 'btn btn-neutral'
+    div = link_to "一覧", reporters_path, class: 'btn btn-neutral'

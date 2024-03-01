@@ -1,0 +1,50 @@
+- provide :title, @reporter.name
+
+h1.text-2xl 記者情報
+
+div.mx-auto id="#{dom_id @reporter}"
+  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+    p.md:w-32.md:mr-4
+      = t :name, scope: 'activerecord.attributes.reporter'
+    p.bg-base-300.text-base-content.md:w-96 = @reporter.name
+  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+    p.md:w-32.md:mr-4
+      = t :furigana, scope: 'activerecord.attributes.reporter'
+    p.bg-base-300.text-base-content.md:w-96 = @reporter.furigana
+  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+    p.md:w-32.md:mr-4
+      = t :independent, scope: 'activerecord.attributes.reporter'
+    p.bg-base-300.text-base-content.md:w-96 = t @reporter.independent
+  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+    p.md:w-32.md:mr-4
+      = t :medium, scope: 'activerecord.attributes.reporter'
+    - if @reporter.independent?
+      p.bg-base-300.text-base-content.md:w-96 なし
+    - else
+      p.bg-base-300.text-base-content.md:w-96 = link_to @reporter.medium.name, medium_path(@reporter.medium_id), class: 'link hover:link-primary'
+  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+    p.md:w-32.md:mr-4
+      = t :desirability, scope: 'activerecord.attributes.reporter'
+    p.bg-base-300.text-base-content.md:w-96 = t(@reporter.desirability, scope: 'activerecord.enums.reporter.desirability')
+  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+    p.md:w-32.md:mr-4
+      = t :portrait, scope: 'activerecord.attributes.reporter'
+    - if @reporter.portrait.attached?
+      = image_tag @reporter.portrait, alt: "#{@reporter.name}の顔写真", size: '200x200', class: 'block'
+    - else
+      p No Image
+  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+    p.md:w-32.md:mr-4
+      = t :portrait_source, scope: 'activerecord.attributes.reporter'
+    - if @reporter.portrait_source
+      p.bg-base-300.text-base-content.md:w-96
+        = link_to "@reporter.portrait_source #{link_icon}".html_safe, @reporter.portrait_source, class: 'link hover:link-primary'
+  .flex.flex-col.md:flex-row.md:flex-wrap.my-4
+    p.md:w-32.md:mr-4
+      = t :portrait_copyright, scope: 'activerecord.attributes.reporter'
+    p.bg-base-300.text-base-content.md:w-96 = @reporter.portrait_copyright
+
+div.mt-10.flex.flex-row.justify-center.gap-2
+  div = link_to   "編集", edit_reporter_path(@reporter), class: "btn btn-neutral"
+  div = link_to   "一覧", reporters_path, class: "btn btn-neutral"
+  div = button_to "削除", @reporter, method: :delete, class: "btn btn-error"

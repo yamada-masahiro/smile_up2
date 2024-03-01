@@ -1,0 +1,23 @@
+- provide :title, 'メディア一覧'
+
+h1.text-2xl メディア一覧
+
+table.table.table-zebra.table-pin-rows#media
+  thead
+    tr
+      td 名称
+      td 振り仮名
+      td ウェブサイト
+      td
+  tbody
+    - @media.each do |medium|
+      tr id="#{dom_id medium}"
+        td = medium.name
+        td = medium.furigana
+        td = link_to medium.website_url, medium.website_url, target: '_blank'
+        td.flex.flex-row.gap-2
+          div = link_to   '表示', medium, class: 'btn btn-info'
+          div = link_to   '編集', edit_medium_path(medium), class: 'btn btn-info'
+          div = button_to '削除', medium, method: :delete, class: 'btn btn-error'
+
+= link_to "メディアを新規登録する", new_medium_path, class: 'btn btn-info'
